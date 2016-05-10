@@ -1,0 +1,13 @@
+"*":
+  core: {}
+  editor:
+    fontSize: 15
+    invisibles: {}
+    scrollPastEnd: true
+    showIndentGuide: true
+  "exception-reporting":
+    userId: "3a634c35-4cd6-9ceb-c41d-5da17722965e"
+  minimap: {}
+  pigments: {}
+  welcome:
+    showOnStartup: false

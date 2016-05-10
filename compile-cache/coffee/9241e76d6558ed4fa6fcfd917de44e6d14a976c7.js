@@ -1,0 +1,125 @@
+(function() {
+  var Conflict, Directory, GitOps, MergeConflictsView, MergeState, path, util, _;
+
+  Directory = require('atom').Directory;
+
+  path = require('path');
+
+  _ = require('underscore-plus');
+
+  MergeConflictsView = require('../../lib/view/merge-conflicts-view').MergeConflictsView;
+
+  MergeState = require('../../lib/merge-state').MergeState;
+
+  Conflict = require('../../lib/conflict').Conflict;
+
+  GitOps = require('../../lib/git').GitOps;
+
+  util = require('../util');
+
+  describe('MergeConflictsView', function() {
+    var context, fullPath, pkg, repoPath, state, view, _ref;
+    _ref = [], view = _ref[0], context = _ref[1], state = _ref[2], pkg = _ref[3];
+    fullPath = function(fname) {
+      return path.join(atom.project.getPaths()[0], 'path', fname);
+    };
+    repoPath = function(fname) {
+      return context.workingDirectory.relativize(fullPath(fname));
+    };
+    beforeEach(function() {
+      var conflicts, workingDirectory;
+      pkg = util.pkgEmitter();
+      workingDirectory = new Directory(atom.project.getRepositories()[0].getWorkingDirectory());
+      context = {
+        isRebase: false,
+        workingDirPath: workingDirectory.path,
+        workingDirectory: workingDirectory,
+        readConflicts: function() {
+          return Promise.resolve(conflicts);
+        },
+        checkoutSide: function() {
+          return Promise.resolve();
+        }
+      };
+      conflicts = _.map(['file1.txt', 'file2.txt'], function(fname) {
+        return {
+          path: repoPath(fname),
+          message: 'both modified'
+        };
+      });
+      return util.openPath('triple-2way-diff.txt', function(editorView) {
+        state = new MergeState(conflicts, context, false);
+        conflicts = Conflict.all(state, editorView.getModel());
+        return view = new MergeConflictsView(state, pkg);
+      });
+    });
+    afterEach(function() {
+      return pkg.dispose();
+    });
+    describe('conflict resolution progress', function() {
+      var progressFor;
+      progressFor = function(filename) {
+        return view.pathList.find("li[data-path='" + (repoPath(filename)) + "'] progress")[0];
+      };
+      it('starts at zero', function() {
+        expect(progressFor('file1.txt').value).toBe(0);
+        return expect(progressFor('file2.txt').value).toBe(0);
+      });
+      return it('advances when requested', function() {
+        var progress1;
+        pkg.didResolveConflict({
+          file: fullPath('file1.txt'),
+          total: 3,
+          resolved: 2
+        });
+        progress1 = progressFor('file1.txt');
+        expect(progress1.value).toBe(2);
+        return expect(progress1.max).toBe(3);
+      });
+    });
+    describe('tracking the progress of staging', function() {
+      var isMarkedWith;
+      isMarkedWith = function(filename, icon) {
+        var rs;
+        rs = view.pathList.find("li[data-path='" + (repoPath(filename)) + "'] span.icon-" + icon);
+        return rs.length !== 0;
+      };
+      it('starts without files marked as staged', function() {
+        expect(isMarkedWith('file1.txt', 'dash')).toBe(true);
+        return expect(isMarkedWith('file2.txt', 'dash')).toBe(true);
+      });
+      return it('marks files as staged on events', function() {
+        context.readConflicts = function() {
+          return Promise.resolve([
+            {
+              path: repoPath("file2.txt"),
+              message: "both modified"
+            }
+          ]);
+        };
+        pkg.didStageFile({
+          file: fullPath('file1.txt')
+        });
+        waitsFor(function() {
+          return isMarkedWith('file1.txt', 'check');
+        });
+        return runs(function() {
+          expect(isMarkedWith('file1.txt', 'check')).toBe(true);
+          return expect(isMarkedWith('file2.txt', 'dash')).toBe(true);
+        });
+      });
+    });
+    return it('minimizes and restores the view on request', function() {
+      expect(view.hasClass('minimized')).toBe(false);
+      view.minimize();
+      expect(view.hasClass('minimized')).toBe(true);
+      view.restore();
+      return expect(view.hasClass('minimized')).toBe(false);
+    });
+  });
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAiZmlsZSI6ICIiLAogICJzb3VyY2VSb290IjogIiIsCiAgInNvdXJjZXMiOiBbCiAgICAiZmlsZTovLy9DOi9Vc2Vycy9NYXhlbWlsaWFuLy5hdG9tL3BhY2thZ2VzL21lcmdlLWNvbmZsaWN0cy9zcGVjL3ZpZXcvbWVyZ2UtY29uZmxpY3RzLXZpZXctc3BlYy5jb2ZmZWUiCiAgXSwKICAibmFtZXMiOiBbXSwKICAibWFwcGluZ3MiOiAiQUFBQTtBQUFBLE1BQUEsMEVBQUE7O0FBQUEsRUFBQyxZQUFhLE9BQUEsQ0FBUSxNQUFSLEVBQWIsU0FBRCxDQUFBOztBQUFBLEVBQ0EsSUFBQSxHQUFPLE9BQUEsQ0FBUSxNQUFSLENBRFAsQ0FBQTs7QUFBQSxFQUVBLENBQUEsR0FBSSxPQUFBLENBQVEsaUJBQVIsQ0FGSixDQUFBOztBQUFBLEVBSUMscUJBQXNCLE9BQUEsQ0FBUSxxQ0FBUixFQUF0QixrQkFKRCxDQUFBOztBQUFBLEVBTUMsYUFBYyxPQUFBLENBQVEsdUJBQVIsRUFBZCxVQU5ELENBQUE7O0FBQUEsRUFPQyxXQUFZLE9BQUEsQ0FBUSxvQkFBUixFQUFaLFFBUEQsQ0FBQTs7QUFBQSxFQVFDLFNBQVUsT0FBQSxDQUFRLGVBQVIsRUFBVixNQVJELENBQUE7O0FBQUEsRUFTQSxJQUFBLEdBQU8sT0FBQSxDQUFRLFNBQVIsQ0FUUCxDQUFBOztBQUFBLEVBV0EsUUFBQSxDQUFTLG9CQUFULEVBQStCLFNBQUEsR0FBQTtBQUM3QixRQUFBLG1EQUFBO0FBQUEsSUFBQSxPQUE4QixFQUE5QixFQUFDLGNBQUQsRUFBTyxpQkFBUCxFQUFnQixlQUFoQixFQUF1QixhQUF2QixDQUFBO0FBQUEsSUFFQSxRQUFBLEdBQVcsU0FBQyxLQUFELEdBQUE7YUFDVCxJQUFJLENBQUMsSUFBTCxDQUFVLElBQUksQ0FBQyxPQUFPLENBQUMsUUFBYixDQUFBLENBQXdCLENBQUEsQ0FBQSxDQUFsQyxFQUFzQyxNQUF0QyxFQUE4QyxLQUE5QyxFQURTO0lBQUEsQ0FGWCxDQUFBO0FBQUEs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
+
+//# sourceURL=/C:/Users/Maxemilian/.atom/packages/merge-conflicts/spec/view/merge-conflicts-view-spec.coffee

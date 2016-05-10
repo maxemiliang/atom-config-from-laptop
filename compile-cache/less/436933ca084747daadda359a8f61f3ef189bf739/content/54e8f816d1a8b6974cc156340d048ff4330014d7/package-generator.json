@@ -1,0 +1,1 @@
+{"digest":"4cd559f40d4bb3277680a5502a5179654fded2b1","css":".package-generator .error {\n  display: none;\n}\n","imports":[{"path":"static\\variables\\ui-variables.less","digest":"a51b652b59d33fcd2efa2fd725a78735dbbcf655"},{"path":"static\\variables\\syntax-variables.less","digest":"161404ff92113205d84a38441681ded1e4527102"}],"version":1}

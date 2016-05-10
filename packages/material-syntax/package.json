@@ -1,0 +1,42 @@
+{
+  "name": "material-syntax",
+  "theme": "syntax",
+  "version": "0.5.0",
+  "description": "Bringing Material Design to Atom",
+  "keywords": [
+    "syntax",
+    "theme",
+    "material",
+    "google",
+    "candy",
+    "sublime"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaanDD/material-syntax.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "readme": "# material-syntax theme\n\nThis theme brings the Google Material Design visual language to Atom.\nIt is based on this [Material Theme for Sublime Text](http://equinusocio.github.io/material-theme/).\nThe colors should match the original pretty well. If you find any problems, feel\nfree to create a [new issue](https://github.com/DaanDD/material-syntax/issues/new)\n\n![Screenshot](http://i.imgur.com/TDNX0Lm.png)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/DaanDD/material-syntax/issues"
+  },
+  "homepage": "https://github.com/DaanDD/material-syntax#readme",
+  "_id": "material-syntax@0.5.0",
+  "_shasum": "2cd2215491e355d9ad9f918345bf6db746fe0b75",
+  "_resolved": "file:..\\d-116025-8136-4torwu\\package.tgz",
+  "_from": "..\\d-116025-8136-4torwu\\package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

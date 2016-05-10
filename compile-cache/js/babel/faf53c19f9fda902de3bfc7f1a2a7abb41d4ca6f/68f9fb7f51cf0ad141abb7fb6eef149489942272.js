@@ -1,0 +1,41 @@
+'use babel';
+'use strict';
+
+var _this = this;
+
+describe('AMU ui options', function () {
+    beforeEach(function () {
+        _this.workspace = atom.views.getView(atom.workspace);
+        jasmine.attachToDOM(_this.workspace);
+
+        waitsForPromise('Theme Activation', function () {
+            return atom.packages.activatePackage('atom-material-ui');
+        });
+    });
+
+    it('should be able to cast shadows', function () {
+        atom.config.set('atom-material-ui.ui.panelShadows', false);
+        expect(_this.workspace.classList.contains('panel-shadows')).toBe(false);
+
+        atom.config.set('atom-material-ui.ui.panelShadows', true);
+        expect(_this.workspace.classList.contains('panel-shadows')).toBe(true);
+    });
+
+    it('should be able to add contrast to panels', function () {
+        atom.config.set('atom-material-ui.ui.panelContrast', false);
+        expect(_this.workspace.classList.contains('panel-contrast')).toBe(false);
+
+        atom.config.set('atom-material-ui.ui.panelContrast', true);
+        expect(_this.workspace.classList.contains('panel-contrast')).toBe(true);
+    });
+
+    it('should be able to toggle animations', function () {
+        atom.config.set('atom-material-ui.ui.animations', false);
+        expect(_this.workspace.classList.contains('use-animations')).toBe(false);
+
+        atom.config.set('atom-material-ui.ui.animations', true);
+        expect(_this.workspace.classList.contains('use-animations')).toBe(true);
+    });
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6L1VzZXJzL01heGVtaWxpYW4vLmF0b20vcGFja2FnZXMvYXRvbS1tYXRlcmlhbC11aS9zcGVjL3NldHRpbmdzLXVpLXNwZWMuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsV0FBVyxDQUFDO0FBQ1osWUFBWSxDQUFDOzs7O0FBRWIsUUFBUSxDQUFDLGdCQUFnQixFQUFFLFlBQU07QUFDN0IsY0FBVSxDQUFDLFlBQU07QUFDYixjQUFLLFNBQVMsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLENBQUM7QUFDcEQsZUFBTyxDQUFDLFdBQVcsQ0FBQyxNQUFLLFNBQVMsQ0FBQyxDQUFDOztBQUVwQyx1QkFBZSxDQUFDLGtCQUFrQixFQUFFLFlBQU07QUFDdEMsbUJBQU8sSUFBSSxDQUFDLFFBQVEsQ0FBQyxlQUFlLENBQUMsa0JBQWtCLENBQUMsQ0FBQztTQUM1RCxDQUFDLENBQUM7S0FDTixDQUFDLENBQUM7O0FBRUgsTUFBRSxDQUFDLGdDQUFnQyxFQUFFLFlBQU07QUFDdkMsWUFBSSxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsa0NBQWtDLEVBQUUsS0FBSyxDQUFDLENBQUM7QUFDM0QsY0FBTSxDQUFDLE1BQUssU0FBUyxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUMsZUFBZSxDQUFDLENBQUMsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUM7O0FBRXZFLFlBQUksQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLGtDQUFrQyxFQUFFLElBQUksQ0FBQyxDQUFDO0FBQzFELGNBQU0sQ0FBQyxNQUFLLFNBQVMsQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLGVBQWUsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO0tBQ3pFLENBQUMsQ0FBQzs7QUFFSCxNQUFFLENBQUMsMENBQTBDLEVBQUUsWUFBTTtBQUNqRCxZQUFJLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxtQ0FBbUMsRUFBRSxLQUFLLENBQUMsQ0FBQztBQUM1RCxjQUFNLENBQUMsTUFBSyxTQUFTLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDOztBQUV4RSxZQUFJLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxtQ0FBbUMsRUFBRSxJQUFJLENBQUMsQ0FBQztBQUMzRCxjQUFNLENBQUMsTUFBSyxTQUFTLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO0tBQzFFLENBQUMsQ0FBQzs7QUFFSCxNQUFFLENBQUMscUNBQXFDLEVBQUUsWUFBTTtBQUM1QyxZQUFJLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxnQ0FBZ0MsRUFBRSxLQUFLLENBQUMsQ0FBQztBQUN6RCxjQUFNLENBQUMsTUFBSyxTQUFTLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDOztBQUV4RSxZQUFJLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxnQ0FBZ0MsRUFBRSxJQUFJLENBQUMsQ0FBQztBQUN4RCxjQUFNLENBQUMsTUFBSyxTQUFTLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxnQkFBZ0IsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO0tBQzFFLENBQUMsQ0FBQztDQUNOLENBQUMsQ0FBQyIsImZpbGUiOiJDOi9Vc2Vycy9NYXhlbWlsaWFuLy5hdG9tL3BhY2thZ2VzL2F0b20tbWF0ZXJpYWwtdWkvc3BlYy9zZXR0aW5ncy11aS1zcGVjLmpzIiwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBiYWJlbCc7XG4ndXNlIHN0cmljdCc7XG5cbmRlc2NyaWJlKCdBTVUgdWkgb3B0aW9ucycsICgpID0+IHtcbiAgICBiZWZvcmVFYWNoKCgpID0+IHtcbiAgICAgICAgdGhpcy53b3Jrc3BhY2UgPSBhdG9tLnZpZXdzLmdldFZpZXcoYXRvbS53b3Jrc3BhY2UpO1xuICAgICAgICBqYXNtaW5lLmF0dGFjaFRvRE9NKHRoaXMud29ya3NwYWNlKTtcblxuICAgICAgICB3YWl0c0ZvclByb21pc2UoJ1RoZW1lIEFjdGl2YXRpb24nLCAoKSA9PiB7XG4gICAgICAgICAgICByZXR1cm4gYXRvbS5wYWNrYWdlcy5hY3RpdmF0ZVBhY2thZ2UoJ2F0b20tbWF0ZXJpYWwtdWknKTtcbiAgICAgICAgfSk7XG4gICAgfSk7XG5cbiAgICBpdCgnc2hvdWxkIGJlIGFibGUgdG8gY2FzdCBzaGFkb3dzJywgKCkgPT4ge1xuICAgICAgICBhdG9tLmNvbmZpZy5zZXQoJ2F0b20tbWF0ZXJpYWwtdWkudWkucGFuZWxTaGFkb3dzJywgZmFsc2UpO1xuICAgICAgICBleHBlY3QodGhpcy53b3Jrc3BhY2UuY2xhc3NMaXN0LmNvbnRhaW5zKCdwYW5lbC1zaGFkb3dzJykpLnRvQmUoZmFsc2UpO1xuXG4gICAgICAgIGF0b20uY29uZmlnLnNldCgnYXRvbS1tYXRlcmlhbC11aS51aS5wYW5lbFNoYWRvd3MnLCB0cnVlKTtcbiAgICAgICAgZXhwZWN0KHRoaXMud29ya3NwYWNlLmNsYXNzTGlzdC5jb250YWlucygncGFuZWwtc2hhZG93cycpKS50b0JlKHRydWUpO1xuICAgIH0pO1xuXG4gICAgaXQoJ3Nob3VsZCBiZSBhYmxlIHRvIGFkZCBjb250cmFzdCB0byBwYW5lbHMnLCAoKSA9PiB7XG4gICAgICAgIGF0b20uY29uZmlnLnNldCgnYXRvbS1tYXRlcmlhbC11aS51aS5wYW5lbENvbnRyYXN0JywgZmFsc2UpO1xuICAgICAgICBleHBlY3QodGhpcy53b3Jrc3BhY2UuY2xhc3NMaXN0LmNvbnRhaW5zKCdwYW5lbC1jb250cmFzdCcpKS50b0JlKGZhbHNlKTtcblxuICAgICAgICBhdG9tLmNvbmZpZy5zZXQoJ2F0b20tbWF0ZXJpYWwtdWkudWkucGFuZWxDb250cmFzdCcsIHRydWUpO1xuICAgICAgICBleHBlY3QodGhpcy53b3Jrc3BhY2UuY2xhc3NMaXN0LmNvbnRhaW5zKCdwYW5lbC1jb250cmFzdCcpKS50b0JlKHRydWUpO1xuICAgIH0pO1xuXG4gICAgaXQoJ3Nob3VsZCBiZSBhYmxlIHRvIHRvZ2dsZSBhbmltYXRpb25zJywgKCkgPT4ge1xuICAgICAgICBhdG9tLmNvbmZpZy5zZXQoJ2F0b20tbWF0ZXJpYWwtdWkudWkuYW5pbWF0aW9ucycsIGZhbHNlKTtcbiAgICAgICAgZXhwZWN0KHRoaXMud29ya3NwYWNlLmNsYXNzTGlzdC5jb250YWlucygndXNlLWFuaW1hdGlvbnMnKSkudG9CZShmYWxzZSk7XG5cbiAgICAgICAgYXRvbS5jb25maWcuc2V0KCdhdG9tLW1hdGVyaWFsLXVpLnVpLmFuaW1hdGlvbnMnLCB0cnVlKTtcbiAgICAgICAgZXhwZWN0KHRoaXMud29ya3NwYWNlLmNsYXNzTGlzdC5jb250YWlucygndXNlLWFuaW1hdGlvbnMnKSkudG9CZSh0cnVlKTtcbiAgICB9KTtcbn0pO1xuIl19
+//# sourceURL=/C:/Users/Maxemilian/.atom/packages/atom-material-ui/spec/settings-ui-spec.js
